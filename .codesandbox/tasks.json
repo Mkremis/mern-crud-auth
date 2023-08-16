@@ -18,6 +18,10 @@
       "name": "build",
       "command": "yarn build",
       "runAtStart": false
+    },
+    "dev": {
+      "name": "dev",
+      "command": "dev"
     }
   }
 }
