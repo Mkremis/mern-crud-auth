@@ -9,3 +9,12 @@ export const createAccessToken = (payload) => {
     });
   });
 };
+
+export const validateAccessToken = (token) => {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, TOKEN_SECRET, {}, (err, decoded) => {
+      if (err) reject(err);
+      resolve(decoded);
+    });
+  });
+};

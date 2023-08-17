@@ -45,3 +45,8 @@ export const logout = (req, res) => {
   });
   res.sendStaus(200);
 };
+
+export const profile = (req, res) => {
+  console.log(req.user);
+  res.send('profile');
+};
