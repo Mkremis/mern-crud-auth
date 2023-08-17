@@ -2,22 +2,17 @@
   "name": "mern-crud-auth",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
+    "start": "node src/index.js",
     "dev": "nodemon src/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/codesandbox-app/static-template.git"
-  },
+
   "keywords": [],
-  "author": "Ives van Hoorne",
+  "author": "Martin Kremis",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/codesandbox-app/static-template/issues"
-  },
-  "homepage": "https://github.com/codesandbox-app/static-template#readme",
+
   "devDependencies": {
     "nodemon": "^2.0.20"
   },
