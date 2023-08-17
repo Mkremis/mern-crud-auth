@@ -14,7 +14,13 @@ export const register = async (req, res) => {
     const savedUser = await newUser.save();
     const token = await createAccessToken({ id: savedUser._id });
     res.cookie('token', token);
-    res.status(200).res.json(savedUser);
+    return res.status(200).json({
+      id: savedUser._id,
+      username: savedUser.username,
+      email: savedUser.email,
+      createdAt: savedUser.createdAt,
+      updatedAt: savedUser.updatedAt,
+    });
   } catch (error) {
     res.status(500).json({ message: error });
   }
@@ -30,7 +36,13 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials!' });
     const token = await createAccessToken({ id: userFound._id });
     res.cookie('token', token);
-    res.status(200).res.json(userFound);
+    return res.status(200).json({
+      id: userFound._id,
+      username: userFound.username,
+      email: userFound.email,
+      createdAt: userFound.createdAt,
+      updatedAt: userFound.updatedAt,
+    });
   } catch (error) {
     res.status(500).json({ message: error });
   }
@@ -46,7 +58,14 @@ export const logout = (req, res) => {
   res.sendStaus(200);
 };
 
-export const profile = (req, res) => {
-  console.log(req.user);
-  res.send('profile');
+export const profile = async (req, res) => {
+  const userFound = await User.findById(req.user.id);
+  if (!userFound) res.status(400).json({ message: 'User not found!' });
+  return res.status(200).json({
+    id: userFound._id,
+    username: userFound.username,
+    email: userFound.email,
+    createdAt: userFound.createdAt,
+    updatedAt: userFound.updatedAt,
+  });
 };
