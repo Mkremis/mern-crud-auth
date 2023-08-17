@@ -1,10 +1,10 @@
-import User from "../models/user.model.js";
-import bcryptjs from "bcryptjs";
-import { createAccessToken } from "../libs/jwt.js";
+import User from '../models/user.model.js';
+import bcryptjs from 'bcryptjs';
+import { createAccessToken } from '../libs/jwt.js';
 
 export const register = async (req, res) => {
+  const { username, email, password } = req?.body;
   try {
-    const { username, email, password } = req?.body;
     const hashedPwd = await bcryptjs.hash(password, 10);
     const newUser = new User({
       username,
@@ -12,16 +12,36 @@ export const register = async (req, res) => {
       password: hashedPwd,
     });
     const savedUser = await newUser.save();
-    const token = await createAccessToken(savedUser._id);
-    res.cookie("token", token);
-    res.status(200).res.json({ message: "User created successfully!" });
+    const token = await createAccessToken({ id: savedUser._id });
+    res.cookie('token', token);
+    res.status(200).res.json(savedUser);
   } catch (error) {
     res.status(500).json({ message: error });
   }
 };
 
 export const login = async (req, res) => {
+  const { email, password } = req?.body;
+  try {
+    const userFound = await User.findOne({ email });
+    if (!userFound) return res.status(400).json({ message: 'User not found!' });
+    const isMatch = await bcryptjs.compare(password, userFound.password);
+    if (!isMatch)
+      return res.status(400).json({ message: 'Invalid credentials!' });
+    const token = await createAccessToken({ id: userFound._id });
+    res.cookie('token', token);
+    res.status(200).res.json(userFound);
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
   try {
   } catch (error) {}
-  res.send("login page");
+  res.send('login page');
+};
+
+export const logout = (req, res) => {
+  res.cookie('token', '', {
+    expires: new Date(0),
+  });
+  res.sendStaus(200);
 };
