@@ -14,6 +14,10 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
 
+app.get('/', (req, res) => {
+  res.send('MERN CRUD API');
+});
+
 app.use(authRoutes);
 app.use(taskRoutes);
 
