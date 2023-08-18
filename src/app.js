@@ -11,7 +11,7 @@ dotenv.config();
 
 app.use(
   cors({
-    origin: '*',
+    origin: 'https://gw6spp-5173.csb.app',
     credentials: true,
   })
 );
