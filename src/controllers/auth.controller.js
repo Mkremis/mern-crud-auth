@@ -5,7 +5,8 @@ import { createAccessToken } from '../libs/jwt.js';
 export const register = async (req, res) => {
   const { username, email, password } = req?.body;
   try {
-    const userFound = User.findOne(email);
+    const userFound = await User.findOne(email);
+    console.log(userFound);
     if (userFound)
       res.status(400).json({ error: ['The email is already in use'] });
 
