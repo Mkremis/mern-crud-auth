@@ -26,7 +26,7 @@ export const register = async (req, res) => {
       updatedAt: savedUser.updatedAt,
     });
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).json({ error });
   }
 };
 
@@ -34,10 +34,10 @@ export const login = async (req, res) => {
   const { email, password } = req?.body;
   try {
     const userFound = await User.findOne({ email });
-    if (!userFound) return res.status(400).json({ message: 'User not found!' });
+    if (!userFound) return res.status(400).json({ error: ['User not found!'] });
     const isMatch = await bcryptjs.compare(password, userFound.password);
     if (!isMatch)
-      return res.status(400).json({ message: 'Invalid credentials!' });
+      return res.status(400).json({ error: ['Invalid credentials!'] });
     const token = await createAccessToken({ id: userFound._id });
     res.cookie('token', token);
     return res.status(200).json({
@@ -48,7 +48,7 @@ export const login = async (req, res) => {
       updatedAt: userFound.updatedAt,
     });
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).json({ error });
   }
   try {
   } catch (error) {}
@@ -64,7 +64,7 @@ export const logout = (req, res) => {
 
 export const profile = async (req, res) => {
   const userFound = await User.findById(req.user.id);
-  if (!userFound) res.status(400).json({ message: 'User not found!' });
+  if (!userFound) res.status(400).json({ error: ['User not found!'] });
   return res.status(200).json({
     id: userFound._id,
     username: userFound.username,
