@@ -5,16 +5,12 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.routes.js';
 import taskRoutes from './routes/tasks.routes.js';
+import { corsOptions } from './config/corsOptions.js';
 
 const app = express();
 dotenv.config();
 
-app.use(
-  cors({
-    origin: 'https://gw6spp-5173.csb.app',
-    credentials: true,
-  })
-);
+app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
