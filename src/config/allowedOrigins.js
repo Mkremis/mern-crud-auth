@@ -1,5 +1,5 @@
 export const allowedOrigins = [
   'https://localhost:3800',
-  'http://localhost:5173',
+  'https://vitejsvite5wa6kp-gi3j--5173--ba0db7b1.local-credentialless.webcontainer.io',
   'https://cwdv2f-5173.csb.app',
 ];
