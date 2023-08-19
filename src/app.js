@@ -10,7 +10,11 @@ import { corsOptions } from './config/corsOptions.js';
 const app = express();
 dotenv.config();
 
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
+app.use(cors({
+  origin: 'https://vitejsvite5wa6kp-gi3j--5173--ba0db7b1.local-credentialless.webcontainer.io',
+  credentials: true
+}))
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
