@@ -11,16 +11,13 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: FRONTEND_URL,
-//   })
-// );
 app.use(
-  cors()
+  cors({
+    credentials: true,
+    origin: 'https://j6czq6-5173.csb.app',
+  })
 );
+
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
