@@ -18,8 +18,7 @@ export const register = async (req, res) => {
     const savedUser = await newUser.save();
     const token = await createAccessToken({ id: savedUser._id });
     res.cookie("token", token, {
-      sameSite: "lax",
-      secure: true,
+      sameSite: "None",
     });
     return res.status(200).json({
       id: savedUser._id,
@@ -43,8 +42,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ error: ["Invalid credentials!"] });
     const token = await createAccessToken({ id: userFound._id });
     res.cookie("token", token, {
-      sameSite: "lax",
-      secure: true,
+      sameSite: "None",
     });
     return res.status(200).json({
       id: userFound._id,
