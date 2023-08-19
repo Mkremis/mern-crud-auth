@@ -12,11 +12,14 @@ dotenv.config();
 
 const app = express();
 
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: FRONTEND_URL,
+//   })
+// );
 app.use(
-  cors({
-    credentials: true,
-    origin: FRONTEND_URL,
-  })
+  cors()
 );
 app.use(express.json());
 app.use(morgan("dev"));
