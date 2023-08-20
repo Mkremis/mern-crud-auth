@@ -1,28 +1,29 @@
-import express from "express";
-import cors from "cors";
-import morgan from "morgan";
-import cookieParser from "cookie-parser";
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 
-import authRoutes from "./routes/auth.routes.js";
-import taksRoutes from "./routes/tasks.routes.js";
-import { FRONTEND_URL } from "./config.js";
+import authRoutes from './routes/auth.routes.js';
+import taksRoutes from './routes/tasks.routes.js';
+import { FRONTEND_URL } from './config.js';
 
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: FRONTEND_URL,
+    creadentials: true,
+  })
+);
 
 app.use(express.json());
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 app.use(cookieParser());
-app.use((req, res, next) => {
-  console.log("origin", req.header("origin"));
-  next();
-});
 
-app.use("/api/auth", authRoutes);
-app.use("/api", taksRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api', taksRoutes);
 
 // if (process.env.NODE_ENV === "production") {
 //   const path = await import("path");
